@@ -27,7 +27,7 @@ jobs:
     - name: Test
       run: go test -v ./...
     - name: Tar
-      run: tar czvf main.tar.gz .
+      run: tar czvf main.tar.gz ./*
       
   deploy:
     needs: build
