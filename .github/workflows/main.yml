@@ -32,7 +32,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    environment: tx
+    # environment: tx
     steps:
     - name: ssh deploy
     # You may pin to the exact commit or the version.
@@ -41,7 +41,7 @@ jobs:
         # Private key part of an SSH key pair
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         # Remote host
-        REMOTE_HOST: 43.143.138.6
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
         # Remote user
         REMOTE_USER: work
         # Remote port
