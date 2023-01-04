@@ -32,6 +32,8 @@ jobs:
     runs-on: ubuntu-latest
     environment: tx
     steps:
+    - name: echo
+      run: echo ${{ secrets.SSH_PRIVATE_KEY }}
     - name: ssh deploy
     # You may pin to the exact commit or the version.
       uses: easingthemes/ssh-deploy@845b7f6f1fe5c1ae0ebe63114da9d8582ff0de75
@@ -39,20 +41,19 @@ jobs:
         # Private key part of an SSH key pair
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
         # Remote host
-        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        REMOTE_HOST: 43.143.138.6
         # Remote user
         REMOTE_USER: work
         # Remote port
-        REMOTE_PORT: 22 # optional, default is 22
+        REMOTE_PORT: 22
         # Source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`
-        SOURCE: /main # optional, default is 
+        SOURCE: /main
         # Target directory
-        TARGET: /home/work/ # optional, default is /home/REMOTE_USER/
+        TARGET: /home/work/
         # Arguments to pass to rsync
-        ARGS: -rlgoDzvc -i # optional, default is -rlgoDzvc -i
+        ARGS: -rlgoDzvc -i 
         # An array of ssh arguments, they must be prefixed with -o and separated by a comma, for example: -o SomeArgument=no, -o SomeOtherArgument=5 
-        SSH_CMD_ARGS:  -o StrictHostKeyChecking=no # optional, default is -o StrictHostKeyChecking=no
-        # paths to exclude separated by `,`, ie: `/dist/, /node_modules/`
+        SSH_CMD_ARGS:  -o StrictHostKeyChecking=no
 
    
 
