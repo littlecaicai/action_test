@@ -54,6 +54,13 @@ jobs:
         ARGS: -rlgoDzvc -i 
         # An array of ssh arguments, they must be prefixed with -o and separated by a comma, for example: -o SomeArgument=no, -o SomeOtherArgument=5 
         SSH_CMD_ARGS:  -o StrictHostKeyChecking=no
+        SCRIPT_BEFORE: |
+          whoami
+          ls -al
+        SCRIPT_AFTER: |
+          whoami
+          ls -al
+          echo $RSYNC_STDOUT
 
    
 
