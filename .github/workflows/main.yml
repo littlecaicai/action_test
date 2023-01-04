@@ -26,6 +26,8 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+    - name: Tar
+      run: tar czvf main.tar.gz .
       
   deploy:
     needs: build
@@ -45,7 +47,7 @@ jobs:
         # Remote port
         REMOTE_PORT: 22
         # Source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`
-        SOURCE: /main
+        SOURCE: main.tar.gz
         # Target directory
         TARGET: /home/work/
         # Arguments to pass to rsync
