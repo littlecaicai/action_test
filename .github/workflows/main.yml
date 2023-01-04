@@ -32,7 +32,7 @@ jobs:
   deploy:
     needs: build
     runs-on: ubuntu-latest
-    # environment: tx
+    environment: tx
     steps:
     - name: ssh deploy
     # You may pin to the exact commit or the version.
