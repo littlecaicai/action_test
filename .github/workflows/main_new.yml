@@ -41,6 +41,8 @@ jobs:
         go-version: 1.19
     - name: Build
       run: go build -o main ./main.go
+    - name: tar
+      run: tar czvf main.tar.gz ./*
     - name: echo
       run: ls -al
     - name: ssh deploy
@@ -56,9 +58,9 @@ jobs:
         # Remote port
         REMOTE_PORT: 22
         # Source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`
-        SOURCE: utils/
+        SOURCE: main.tar.gz
         # Target directory
-        TARGET: /home/work/
+        TARGET: /home/work/ac_test
         # Arguments to pass to rsync
         ARGS: -rlgoDzvc -i 
         # An array of ssh arguments, they must be prefixed with -o and separated by a comma, for example: -o SomeArgument=no, -o SomeOtherArgument=5 
