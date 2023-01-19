@@ -32,8 +32,8 @@ jobs:
       
     - uses: actions/upload-artifact@v3
       with:
-        name: main.tar.gz
-        path: action_test
+        name: action_test
+        path: main.tar.gz
       
   deploy:
     needs: build
@@ -42,8 +42,7 @@ jobs:
     steps:
     - uses: actions/download-artifact@v3
       with:
-        name: main.tar.gz
-        path: action_test
+        name: action_test
     - name: Display structure of downloaded files
       run: ls -R
    
