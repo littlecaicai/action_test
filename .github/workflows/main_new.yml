@@ -35,7 +35,7 @@ jobs:
     - uses: actions/upload-artifact@v3
       with:
         name: action_test
-        path: artifact/main.tar.gz
+        path: main.tar.gz
       
   deploy:
     needs: build
