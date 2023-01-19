@@ -40,7 +40,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: tx
     steps:
-    - uses: actions/upload-artifact@v3
+    - uses: actions/download-artifact@v3
       with:
         name: main.tar.gz
         path: action_test
