@@ -26,26 +26,27 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+      
     - name: Tar
       run: tar czvf main.tar.gz ./*
+      
+    - uses: actions/upload-artifact@v3
+      with:
+        name: main.tar.gz
+        path: action_test
       
   deploy:
     needs: build
     runs-on: ubuntu-latest
     environment: tx
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Go
-      uses: actions/setup-go@v3
+    - uses: actions/upload-artifact@v3
       with:
-        go-version: 1.19
-    - name: Build
-      run: go build -o main ./main.go
-    - name: tar
-      run: tar czvf main.tar.gz ./*
-    - name: echo
-      run: ls -al && echo "111111111"
-      
+        name: main.tar.gz
+        path: action_test
+    - name: Display structure of downloaded files
+      run: ls -R
+   
     - name: ssh deploy
     # You may pin to the exact commit or the version.
       uses: easingthemes/ssh-deploy@main
@@ -61,7 +62,7 @@ jobs:
         # Source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`
         SOURCE: main.tar.gz
         # Target directory
-        TARGET: /home/work/ac_test
+        TARGET: /home/work/action_deploy
         # Arguments to pass to rsync
         ARGS: -rlgoDzvc -i 
         # An array of ssh arguments, they must be prefixed with -o and separated by a comma, for example: -o SomeArgument=no, -o SomeOtherArgument=5 
@@ -69,9 +70,9 @@ jobs:
         SCRIPT_BEFORE: |
           whoami
           ls -al
-          rm -rf ac_test/*
+          rm -rf action_deploy/*
         SCRIPT_AFTER: |
-          cd ac_test
+          cd action_deploy
           tar xzvf main.tar.gz
           ls -al
           echo $RSYNC_STDOUT
