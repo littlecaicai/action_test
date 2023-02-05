@@ -78,6 +78,12 @@ jobs:
           tar xzvf main.tar.gz
           ls -al
           echo $RSYNC_STDOUT
+          
+  echo:
+    runs-on: ubuntu-latest
+    steps:
+    - name: echo
+      run: echo "finish success"
 
    
 
