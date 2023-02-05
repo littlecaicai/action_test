@@ -37,7 +37,49 @@ jobs:
         name: action_test
         path: main.tar.gz
       
-  deploy:
+  deploy_pc:
+    needs: build
+    runs-on: ubuntu-latest
+    environment: tx
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        name: action_test
+        path: artifact_download
+    - name: Display structure of downloaded files
+      run: ls -R
+   
+    - name: ssh deploy
+    # You may pin to the exact commit or the version.
+      uses: easingthemes/ssh-deploy@main
+      env:
+        # Private key part of an SSH key pair
+        SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+        # Remote host
+        REMOTE_HOST: ${{ secrets.REMOTE_HOST }}
+        # Remote user
+        REMOTE_USER: work
+        # Remote port
+        REMOTE_PORT: 22
+        # Source directory, path relative to `$GITHUB_WORKSPACE` root, eg: `dist/`
+        SOURCE: artifact_download/main.tar.gz
+        # Target directory
+        TARGET: /home/work/action_deploy
+        # Arguments to pass to rsync
+        ARGS: -rlgoDzvc -i 
+        # An array of ssh arguments, they must be prefixed with -o and separated by a comma, for example: -o SomeArgument=no, -o SomeOtherArgument=5 
+        SSH_CMD_ARGS:  -o StrictHostKeyChecking=no
+        SCRIPT_BEFORE: |
+          whoami
+          ls -al
+          rm -rf action_deploy/*
+        SCRIPT_AFTER: |
+          cd action_deploy
+          tar xzvf main.tar.gz
+          ls -al
+          echo $RSYNC_STDOUT
+          
+  deploy_mobile:
     needs: build
     runs-on: ubuntu-latest
     environment: tx
