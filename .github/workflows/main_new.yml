@@ -82,7 +82,7 @@ jobs:
   deploy_mobile:
     needs: build
     runs-on: ubuntu-latest
-    environment: tx
+    environment: tx_mobile
     steps:
     - uses: actions/download-artifact@v3
       with:
