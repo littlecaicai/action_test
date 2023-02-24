@@ -2,7 +2,7 @@ on:
   workflow_dispatch:
     inputs:
       print_tags:
-        description: 'True to print to STDOUT'
+        description: 'True to print to STDOUT!'
         required: true
         type: boolean
       tags:
