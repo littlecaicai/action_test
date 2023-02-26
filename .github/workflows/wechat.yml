@@ -14,6 +14,12 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
+    - uses: jerray/work-weixin-notifier@v1.0.0
+      with:
+        key: ${{ secrets.weixin_key }}
+        type: text
+        content: '{{ github.Repository }} build finished'
+        status: ${{ job.status }}
 
     - name: send message 
       run: |
