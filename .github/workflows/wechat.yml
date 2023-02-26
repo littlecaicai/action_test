@@ -14,12 +14,17 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-    - uses: jerray/work-weixin-notifier@v1.0.0
-      with:
-        key: RZksuyCJobIxBoQLV78FMO0IqM_wn9ShHDO_8Q04hrE
-        type: text
-        content: '{{ github.Repository }} build finished'
-        status: ${{ job.status }}
+    - name: send message 
+      run: |
+        curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=0e19a011-3602-48f4-b20f-0f6b89c2f51a' \
+        -H 'Content-Type: application/json' \
+        -d '
+        {
+        "msgtype": "text",
+        "text": {
+        "content": "send message test, job status: ${{ job.status }}"
+        }
+        }'
 
     
 
