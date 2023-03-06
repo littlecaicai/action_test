@@ -126,6 +126,7 @@ jobs:
           
   echo:
     runs-on: ubuntu-latest
+    needs: [deploy_mobile,deploy_pc] 
     steps:
     - name: echo
       run: |
