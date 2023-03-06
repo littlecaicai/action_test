@@ -130,9 +130,9 @@ jobs:
     - name: echo
       run: |
         echo "finish success"
-        echo ${{ job.status }}
-        echo ${{ steps.<download_pc>.conclusion }}
-        echo ${{ steps.<deploy>.conclusion }}
+        echo job.status 
+        echo steps.<download_pc>.conclusion 
+        echo steps.<deploy>.conclusion
         #publish_message:
         #  runs-on: ubuntu-latest
         #  steps:
