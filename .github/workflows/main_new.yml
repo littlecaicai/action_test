@@ -45,7 +45,7 @@ jobs:
     - uses: actions/download-artifact@v3
       id: download_pc
       with:
-        name: action_test
+        name: action_test123
         path: artifact_download
     - name: Display structure of downloaded files
       run: ls -R
@@ -85,6 +85,7 @@ jobs:
         echo "finish success1"
         echo ${{ job.status }}
         echo ${{ steps.deploy_pc.conclusion }}
+        echo ${{ steps.download_pc.conclusion }}
 
 
           
