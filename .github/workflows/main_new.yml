@@ -137,15 +137,11 @@ jobs:
         curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=0e19a011-3602-48f4-b20f-0f6b89c2f51a' \
         -H 'Content-Type: application/json' \
         -d '{
-          "msgtype": "markdown",
-          "markdown": {
-            "content": "机器人测试<font color=\"warning\">${{ job.status }}</font>\n
-            >download_pc:<font color=\"comment\">${{ steps.<download_pc>.conclusion }}</font>
-            >download:<font color=\"comment\">${{steps.<download>.conclusion}}</font>
-            >deploy:<font color=\"comment\">${{steps.<deploy>.conclusion}}</font>"
-          }
-        }'
-     
-
-   
-
+    "msgtype": "markdown",
+    "markdown": {
+        "content": "机器人测试<font color=\"warning\">${{ job.status }}</font>\n
+         >download_pc:<font color=\"comment\">${{ steps.<download_pc>.conclusion }}</font>
+         >download:<font color=\"comment\">${{steps.<download>.conclusion}}</font>
+         >deploy:<font color=\"comment\">${{steps.<deploy>.conclusion}}</font>"
+    }
+}'
