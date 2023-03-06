@@ -43,6 +43,7 @@ jobs:
     environment: tx
     steps:
     - uses: actions/download-artifact@v3
+      id: download_pc
       with:
         name: action_test
         path: artifact_download
@@ -85,6 +86,7 @@ jobs:
     environment: tx_mobile
     steps:
     - uses: actions/download-artifact@v3
+      id: download
       with:
         name: action_test
         path: artifact_download
@@ -92,6 +94,7 @@ jobs:
       run: ls -R
    
     - name: ssh deploy
+      id: deploy
     # You may pin to the exact commit or the version.
       uses: easingthemes/ssh-deploy@main
       env:
@@ -126,6 +129,24 @@ jobs:
     steps:
     - name: echo
       run: echo "finish success"
+  publish_message:
+    runs-on: ubuntu-latest
+    steps:
+    - name: publish
+      run: |
+        curl 'https://qyapi.weixin.qq.com/cgi-bin/webhook/send?key=0e19a011-3602-48f4-b20f-0f6b89c2f51a' \
+        -H 'Content-Type: application/json' \
+        -d '
+        {
+        "msgtype": "markdown",
+        "markdown": {
+        "content": "### 机器人测试\
+        - steps.<download_pc>.conclusion\
+        - steps.<download>.conclusion\
+        - steps.<deploy>.conclusion"
+        }
+        }'
+     
 
    
 
