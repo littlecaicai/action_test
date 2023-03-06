@@ -129,7 +129,7 @@ jobs:
     steps:
     - name: echo
       run: |
-        echo "finish success"
+        echo "finish success1"
         echo job.status 
         echo steps.download_pc.conclusion 
         echo steps.deploy.conclusion
