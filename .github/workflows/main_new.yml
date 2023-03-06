@@ -53,6 +53,7 @@ jobs:
     - name: ssh deploy
     # You may pin to the exact commit or the version.
       uses: easingthemes/ssh-deploy@main
+      id: deploy_pc
       env:
         # Private key part of an SSH key pair
         SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
@@ -79,11 +80,19 @@ jobs:
           tar xzvf main.tar.gz
           ls -al
           echo $RSYNC_STDOUT
+    - name: echo
+      run: |
+        echo "finish success1"
+        echo ${{ job.status }}
+        echo ${{ steps.deploy_pc.conclusion }}
+
+
           
   deploy_mobile:
     needs: build
     runs-on: ubuntu-latest
     environment: tx_mobile
+    id: deploy_mobile
     steps:
     - uses: actions/download-artifact@v3
       id: download
@@ -122,14 +131,4 @@ jobs:
           cd action_deploy
           tar xzvf main.tar.gz
           ls -al
-          echo $RSYNC_STDOUT
-          
-  echo:
-    runs-on: ubuntu-latest
-    steps:
-    - name: echo
-      run: |
-        echo "finish success1"
-        echo ${{ job.status }}
-        echo ${{ steps.download_pc.conclusion }}
-        echo ${{ steps.deploy.conclusion }}
+          echo $RSYNC_STDOUT 
